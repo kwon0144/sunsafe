@@ -61,9 +61,6 @@ const Home = () => {
       <section className="bg-white mb-20 px-10 lg:px-30">
         <div className="flex items-center justify-between mb-10">
           <h2 className="text-2xl font-semibold">Sun Safety Articles</h2>
-          <button className="!rounded-button text-amber-600 border-2 border-amber-600 px-4 py-2 hover:bg-amber-50 transition-colors whitespace-nowrap">
-            View All Articles
-          </button>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-15">
           {[
