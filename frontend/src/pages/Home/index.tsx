@@ -35,11 +35,9 @@ const Home = () => {
             <h1 className="text-5xl font-bold text-amber-900 mb-6">Welcome to SunSafe</h1>
             <p className="text-xl text-amber-800 mb-8">Your personal UV protection companion. Stay safe and healthy with real-time UV tracking and smart reminders.</p>
             <div className="flex space-x-4">
-              <button className="!rounded-button bg-amber-600 text-white px-8 py-3 text-lg font-medium cursor-pointer hover:bg-amber-700 transition-colors whitespace-nowrap">
+              <button className="!rounded-button bg-amber-600 text-white px-8 py-3 text-lg font-medium cursor-pointer hover:bg-amber-700 transition-colors whitespace-nowrap"
+              onClick={() => navigate("/uv-index-tracker")}>
               Start Tracking
-              </button>
-              <button className="!rounded-button border-2 border-amber-600 text-amber-600 px-8 py-3 text-lg font-medium cursor-pointer hover:bg-amber-50 transition-colors whitespace-nowrap">
-              Learn More
               </button>
             </div>
           </div>
