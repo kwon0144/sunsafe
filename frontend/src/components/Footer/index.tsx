@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Footer = () => {
     return (
         <footer className="bg-gray-100 py-12 mt-16">
@@ -13,9 +15,9 @@ const Footer = () => {
                     <div>
                         <h3 className="text-lg font-semibold mb-4 text-black">Quick Links</h3>
                         <ul className="space-y-2">
-                            <li><a href="#" className="hover:text-orange-400 transition-colors">UV Index Tracker</a></li>
-                            <li><a href="#" className="hover:text-orange-400 transition-colors">Sunscreen Reminder</a></li>
-                            <li><a href="#" className="hover:text-orange-400 transition-colors">Learn about UV Impact</a></li>
+                            <li><Link to="/uv-index-tracker" className="hover:text-orange-400 transition-colors">UV Index Tracker</Link></li>
+                            <li><Link to="/sunscreen-reminder" className="hover:text-orange-400 transition-colors">Sunscreen Reminder</Link></li>
+                            <li><Link to="/uv-impact-insights" className="hover:text-orange-400 transition-colors">Learn about UV Impact</Link></li>
                         </ul>
                     </div>
                 </div>
