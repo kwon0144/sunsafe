@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import UVIndexTracker from "./pages/UVIndexTracker";
 import UVImpactInsights from "./pages/UVImpactInsights";
 import SunscreenReminder from "./pages/SunscreenReminder";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/uv-impact-insights" element={<UVImpactInsights />} />
           <Route path="/sunscreen-reminder" element={<SunscreenReminder />} />
         </Routes>
+        <Footer />
       </div>
     </Router>
   );
