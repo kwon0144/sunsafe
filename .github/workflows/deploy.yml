@@ -40,11 +40,10 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v3
         with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ env.AWS_REGION }}
-        role-to-assume: ${{ secrets.LAMBDA_ROLE_ARN }}
-        role-session-name: GitHubActionsLambdaDeployment
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+          role-session-name: GitHubActionsLambdaDeployment
 
       - name: Zip Lambda function
         run: |
@@ -55,9 +54,9 @@ jobs:
         id: check_lambda
         run: |
           if aws lambda get-function --function-name ${{ env.LAMBDA_FUNCTION_NAME }}; then
-            echo "::set-output name=lambda_exists::true"
+            echo "lambda_exists=true" >> $GITHUB_OUTPUT
           else
-            echo "::set-output name=lambda_exists::false"
+            echo "lambda_exists=false" >> $GITHUB_OUTPUT
           fi
           
       - name: Create or update Lambda function
