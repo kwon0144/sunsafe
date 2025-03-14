@@ -31,7 +31,7 @@ jobs:
       - name: Run unit tests
         run: |
           cd backend/${{ env.LAMBDA_FUNCTION_NAME }}
-          pytest -m unitest discover -s . -p 'test_*.py'
+          python -m pytest test_*.py -v
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v3
