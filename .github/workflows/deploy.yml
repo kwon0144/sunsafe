@@ -1,0 +1,78 @@
+name: Deploy Multiple Lambda Functions
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  LAMBDA_FUNCTION_NAME: TestFunction
+  AWS_REGION: ap-southeast-2
+
+jobs:
+  deploy:
+    name: Deploy Lambda Functions
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.13
+
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          pip install awscli pytest
+
+      - name: Run unit tests
+        run: |
+          cd backend/testFunction
+          pytest -m unitest discover -s . -p 'test_*.py'
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-southeast-2
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          role-session-name: GitHubActionsLambdaDeployment
+
+      - name: Zip Lambda function
+        run: |
+          cd backend/testFunction
+          zip -r ../../lambda_function.zip lambda_function.py
+
+      - name: Check if Lambda function exists
+        id: check_lambda
+        run: |
+          if aws lambda get-function --function-name ${{ env.LAMBDA_FUNCTION_NAME }}; then
+            echo "::set-output name=lambda_exists::true"
+          else
+            echo "::set-output name=lambda_exists::false"
+          fi
+          
+      - name: Create or update Lambda function
+        run: |
+          if [ "${{ steps.check_lambda.outputs.lambda_exists }}" = "false" ]; then
+            echo "Creating Lambda function..."
+            aws lambda create-function --function-name ${{ env.LAMBDA_FUNCTION_NAME }} \
+              --runtime python3.13 \
+              --role ${{ env.LAMBDA_ROLE_ARN }} \
+              --handler lambda_function.lambda_handler \
+              --zip-file fileb://lambda_function.zip
+          else
+            echo "Updating Lambda function..."
+            aws lambda update-function-code --function-name ${{ env.LAMBDA_FUNCTION_NAME }} \
+              --zip-file fileb://lambda_function.zip
+          fi
+
+      - name: Clean up
+        run: rm -rf lambda_function.zip  
+            
+              
+            
