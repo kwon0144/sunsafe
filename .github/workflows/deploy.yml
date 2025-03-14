@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch: Allows manual trigger
 
 env:
   LAMBDA_FUNCTION_NAME: TestFunction
@@ -30,7 +31,7 @@ jobs:
 
       - name: Run unit tests
         run: |
-          cd backend/testFunction
+          cd backend/${{ env.LAMBDA_FUNCTION_NAME }}
           pytest -m unitest discover -s . -p 'test_*.py'
 
       - name: Configure AWS credentials
@@ -44,7 +45,7 @@ jobs:
 
       - name: Zip Lambda function
         run: |
-          cd backend/testFunction
+          cd backend/${{ env.LAMBDA_FUNCTION_NAME }}
           zip -r ../../lambda_function.zip lambda_function.py
 
       - name: Check if Lambda function exists
