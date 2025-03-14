@@ -21,6 +21,12 @@ const Home = () => {
       title: 'Skin Protection Tips',
       description: 'Access expert advice and recommendations for optimal sun protection.',
       path: '/uv-impact-insights'
+    },
+    {
+      icon: 'fa-question-circle',
+      title: 'Sun Protection Advisor',
+      description: 'Get AI-powered personalized recommendations for your sun protection needs.',
+      path: '/sun-protection-advisor'
     }
   ];
 
@@ -44,16 +50,16 @@ const Home = () => {
         </div>
       </div>
       {/* List of Services */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20 px-10 lg:px-30">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 lg:gap-8 mb-20 px-10 lg:px-30">
         {services.map((service, index) => (
           <div
             key={index}
             onClick={() => navigate(service.path)}
-            className="min-h-[100px] max-w-[500px] bg-gradient-to-b from-amber-50 to-white rounded-xl shadow-lg p-8 hover:shadow-xl transition-all cursor-pointer hover:scale-105"
+            className="min-h-[100px] bg-gradient-to-b from-amber-50 to-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all cursor-pointer hover:scale-105"
           >
-            <i className={`fas ${service.icon} text-4xl text-amber-600 mb-4`}></i>
-            <h3 className="text-xl font-semibold text-amber-900 mb-3">{service.title}</h3>
-            <p className="text-amber-800">{service.description}</p>
+            <i className={`fas ${service.icon} text-3xl text-amber-600 mb-3`}></i>
+            <h3 className="text-lg font-semibold text-amber-900 mb-2">{service.title}</h3>
+            <p className="text-sm text-amber-800">{service.description}</p>
           </div>
         ))}
       </div>
