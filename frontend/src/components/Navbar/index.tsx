@@ -37,6 +37,14 @@ const Navbar = () => {
           Sunscreen Reminder
         </Link>
         <Link
+          to="/uv-protection-advisor"
+          className={`px-3 py-1 rounded-md hover:bg-orange-400 hover:text-white transition-colors ${
+            isActive("/uv-protection-advisor") ? "bg-orange-400 text-white" : "bg-gray-200 text-gray-700"
+          }`}
+        >
+          UV Protection Advisor
+        </Link>
+        <Link
           to="/"
           className={`flex items-center space-x-1 cursor-pointer ${
             isActive("/") ? "text-orange-400" : "text-gray-700"
