@@ -1,4 +1,7 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Autoplay } from "swiper/modules";
+import * as echarts from "echarts";
 
 // Play sound function
 const playSound = () => {
@@ -6,16 +9,24 @@ const playSound = () => {
   audio.play();
 };
 
+// Show alert function
+const showAlert = () => {
+  alert("Time to reapply sunscreen! Don't forget to protect your skin from UV rays.");
+};
+
 const App = () => {
   const [reminderTimes, setReminderTimes] = useState<string[]>([]);
   const [departureTime, setDepartureTime] = useState<string>("");
   const [returnTime, setReturnTime] = useState<string>("");
+  const [showNotificationPanel, setShowNotificationPanel] = useState(false);
+  const [uvIndex, setUvIndex] = useState(7.2);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Prevent default form submission
 
     // Play sound immediately when the button is clicked
     playSound();
+    showAlert(); // Show alert immediately
 
     try {
       // Get the current date
@@ -63,7 +74,7 @@ const App = () => {
       if (parsedData && Array.isArray(parsedData.reminder_times)) {
         setReminderTimes(parsedData.reminder_times);
 
-        // Play sound for each reminder time
+        // Play sound and show alert for each reminder time
         parsedData.reminder_times.forEach((time: string) => {
           const reminderTime = new Date(time).getTime();
           const currentTime = new Date().getTime();
@@ -72,9 +83,21 @@ const App = () => {
           if (timeDifference > 0) {
             setTimeout(() => {
               playSound();
+              showAlert(); // Show alert for each reminder time
             }, timeDifference);
           }
         });
+
+        // Set interval for every 2 hours
+        const twoHoursInMilliseconds = 2 * 60 * 60 * 1000;
+        setInterval(() => {
+          playSound();
+          showAlert(); // Show alert every 2 hours
+        }, twoHoursInMilliseconds);
+
+        // Show notification panel
+        setShowNotificationPanel(true);
+        setTimeout(() => setShowNotificationPanel(false), 3000);
       } else {
         console.error("Invalid response data:", parsedData);
       }
@@ -85,104 +108,165 @@ const App = () => {
   };
 
   return (
-    <div style={styles.container}>
-      <h1 style={styles.title}>Reminder App</h1>
-      <form onSubmit={handleSubmit} style={styles.form}>
-        <label style={styles.label}>
-          Departure Time:
-          <input
-            type="time"
-            value={departureTime}
-            onChange={(e) => setDepartureTime(e.target.value)}
-            style={styles.input}
-            required
-          />
-        </label>
-        <br />
-        <label style={styles.label}>
-          Return Time:
-          <input
-            type="time"
-            value={returnTime}
-            onChange={(e) => setReturnTime(e.target.value)}
-            style={styles.input}
-            required
-          />
-        </label>
-        <br />
-        <button type="submit" style={styles.button}>
-          Get Reminder Times
-        </button>
-      </form>
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+      {/* Header */}
+      <header className="bg-white shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+            <i className="fas fa-sun text-yellow-400 text-2xl"></i>
+            <span className="text-xl font-semibold text-teal-700">SunSafe</span>
+          </div>
+          <nav className="hidden md:flex space-x-8">
+            <a href="#" className="text-gray-600 hover:text-gray-900 cursor-pointer">
+              UV Index Tracker
+            </a>
+            <a href="#" className="text-gray-600 hover:text-gray-900 cursor-pointer">
+              UV Impact Insights
+            </a>
+            <a href="#" className="text-gray-600 hover:text-gray-900 cursor-pointer">
+              Sunscreen Reminder
+            </a>
+            <a href="#" className="text-gray-600 hover:text-gray-900 cursor-pointer">
+              <i className="fas fa-home text-blue-400"></i>
+              <span className="ml-1">Home</span>
+            </a>
+          </nav>
+          <div className="flex items-center space-x-2 bg-yellow-50 px-4 py-2 rounded-lg">
+            <i className="fas fa-radiation text-yellow-600"></i>
+          </div>
+        </div>
+      </header>
 
-      <h2 style={styles.subtitle}>Reminder Times (UTC):</h2>
-      <ul style={styles.list}>
-        {reminderTimes.length > 0 &&
-          reminderTimes.map((time, index) => (
-            <li key={index} style={styles.listItem}>
-              {new Date(time).toUTCString()}
-            </li>
-          ))}
-      </ul>
+      {/* Main Content */}
+      <main className="max-w-7xl mx-auto px-4 py-8">
+        {/* Reminder Settings */}
+        <section className="bg-white rounded-xl shadow-lg p-8 mb-12">
+          <h2 className="text-2xl font-semibold mb-6">Reminder Settings</h2>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Departure Time
+                </label>
+                <input
+                  type="time"
+                  value={departureTime}
+                  onChange={(e) => setDepartureTime(e.target.value)}
+                  className="border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
+                  required
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Return Time
+                </label>
+                <input
+                  type="time"
+                  value={returnTime}
+                  onChange={(e) => setReturnTime(e.target.value)}
+                  className="border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
+                  required
+                />
+              </div>
+            </div>
+            <button
+              type="submit"
+              className="!rounded-button bg-blue-600 text-white px-8 py-3 text-lg font-medium cursor-pointer hover:bg-blue-700 transition-colors w-full md:w-fit"
+            >
+              Get Reminder Times
+            </button>
+          </form>
+        </section>
+
+        {/* Reminder Times List */}
+        <section className="bg-white rounded-xl shadow-lg p-8 mb-12">
+          <h2 className="text-2xl font-semibold mb-6">Reminder Times (UTC)</h2>
+          <ul className="space-y-4">
+            {reminderTimes.length > 0 ? (
+              reminderTimes.map((time, index) => (
+                <li key={index} className="p-4 bg-gray-50 rounded-lg">
+                  {new Date(time).toUTCString()}
+                </li>
+              ))
+            ) : (
+              <li className="text-gray-500">No reminder times set yet.</li>
+            )}
+          </ul>
+        </section>
+
+        {/* Tips Carousel */}
+        <section className="bg-white rounded-xl shadow-lg p-8 mb-12">
+  <h2 className="text-2xl font-semibold mb-6 text-center">Sun Protection Tips</h2>
+  <Swiper
+    modules={[Pagination]} 
+    pagination={{ clickable: true }} 
+    loop={true} 
+    className="h-[200px] flex items-center justify-center" 
+  >
+    {/* Tip 1 */}
+    <SwiperSlide>
+      <div className="flex flex-col items-center justify-center h-full">
+        <h3 className="text-xl font-semibold mb-4">Tip #1</h3>
+        <p className="text-gray-600 text-center max-w-[600px]">
+          Apply sunscreen 15-30 minutes before sun exposure for optimal protection.
+        </p>
+      </div>
+    </SwiperSlide>
+
+    {/* Tip 2 */}
+    <SwiperSlide>
+      <div className="flex flex-col items-center justify-center h-full">
+        <h3 className="text-xl font-semibold mb-4">Tip #2</h3>
+        <p className="text-gray-600 text-center max-w-[600px]">
+          Use broad-spectrum sunscreen to protect against both UVA and UVB rays.
+        </p>
+      </div>
+    </SwiperSlide>
+
+    {/* Tip 3 */}
+    <SwiperSlide>
+      <div className="flex flex-col items-center justify-center h-full">
+        <h3 className="text-xl font-semibold mb-4">Tip #3</h3>
+        <p className="text-gray-600 text-center max-w-[600px]">
+          Reapply sunscreen every 2 hours, especially after swimming or sweating.
+        </p>
+      </div>
+    </SwiperSlide>
+
+    {/* Tip 4 */}
+    <SwiperSlide>
+      <div className="flex flex-col items-center justify-center h-full">
+        <h3 className="text-xl font-semibold mb-4">Tip #4</h3>
+        <p className="text-gray-600 text-center max-w-[600px]">
+          Don't forget to protect your lips with SPF lip balm.
+        </p>
+      </div>
+    </SwiperSlide>
+
+    {/* Tip 5 */}
+    <SwiperSlide>
+      <div className="flex flex-col items-center justify-center h-full">
+        <h3 className="text-xl font-semibold mb-4">Tip #5</h3>
+        <p className="text-gray-600 text-center max-w-[600px]">
+          Wear protective clothing, hats, and sunglasses for extra sun safety.
+        </p>
+      </div>
+    </SwiperSlide>
+  </Swiper>
+</section>
+
+        {/* Notification Panel */}
+        {showNotificationPanel && (
+          <div className="fixed top-4 right-4 bg-green-100 border-l-4 border-green-500 p-4 rounded shadow-lg">
+            <div className="flex items-center">
+              <i className="fas fa-check-circle text-green-500 mr-2"></i>
+              <p className="text-green-700">Reminder set successfully!</p>
+            </div>
+          </div>
+        )}
+      </main>
     </div>
   );
-};
-
-
-const styles = {
-  container: {
-    fontFamily: "Arial, sans-serif",
-    maxWidth: "600px",
-    margin: "0 auto",
-    padding: "20px",
-    backgroundColor: "#f9f9f9",
-    borderRadius: "8px",
-    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-  },
-  title: {
-    textAlign: "center" as const, 
-    color: "#333",
-  },
-  form: {
-    display: "flex" as const, 
-    flexDirection: "column" as const, 
-    gap: "10px",
-  },
-  label: {
-    fontSize: "16px",
-    color: "#555",
-  },
-  input: {
-    padding: "8px",
-    fontSize: "16px",
-    borderRadius: "4px",
-    border: "1px solid #ccc",
-    marginLeft: "10px",
-  },
-  button: {
-    padding: "10px",
-    fontSize: "16px",
-    backgroundColor: "#007bff",
-    color: "#fff",
-    border: "none",
-    borderRadius: "4px",
-    cursor: "pointer",
-  },
-  subtitle: {
-    marginTop: "20px",
-    color: "#333",
-  },
-  list: {
-    listStyleType: "none",
-    padding: "0",
-  },
-  listItem: {
-    padding: "10px",
-    backgroundColor: "#fff",
-    marginBottom: "10px",
-    borderRadius: "4px",
-    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-  },
 };
 
 export default App;
