@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import * as echarts from "echarts";
 
 const cities = [
@@ -17,7 +17,6 @@ const cities = [
 const UVIndexTracker = () => {
   const [selectedCity, setSelectedCity] = useState<string>("Sydney");
   const [uvIndex, setUvIndex] = useState<number | null>(null);
-  const [uvColor, setUvColor] = useState<string>("");
   const [showLocationDropdown, setShowLocationDropdown] = useState(false);
   const [error, setError] = useState<string>("");
 
@@ -80,13 +79,11 @@ const UVIndexTracker = () => {
       console.log("Final Parsed Body:", parsedBody);
   
       setUvIndex(Number(parsedBody.uv_index.toFixed(1)));
-      setUvColor(parsedBody.color);
       setError("");
     } catch (err) {
       console.error("Fetch error:", err);
       setError("Error fetching UV index. Please try again.");
       setUvIndex(null);
-      setUvColor("");
     }
   };
 
@@ -163,6 +160,11 @@ const UVIndexTracker = () => {
         {/* Title */}
         <div className='mb-8'>
           <h1 className="text-3xl font-bold text-gray-900">UV Index Tracker</h1>
+          {error && (
+            <div className="mt-4 p-4 bg-red-50 border-l-4 border-red-500 text-red-700">
+              {error}
+            </div>
+          )}
         </div>
         <div className="flex items-center justify-between w-1/2 mb-5">
           <div className="relative w-64">

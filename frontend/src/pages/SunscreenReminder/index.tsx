@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, Autoplay } from "swiper/modules";
+import { Pagination } from "swiper/modules";
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/autoplay';
@@ -21,7 +21,6 @@ const SunscreenReminder = () => {
   const [departureTime, setDepartureTime] = useState<string>("");
   const [returnTime, setReturnTime] = useState<string>("");
   const [showNotificationPanel, setShowNotificationPanel] = useState(false);
-  const [uvIndex, setUvIndex] = useState(7.2);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Prevent default form submission
@@ -76,11 +75,6 @@ const SunscreenReminder = () => {
       if (parsedData && Array.isArray(parsedData.reminder_times)) {
         setReminderTimes(parsedData.reminder_times);
         
-        // Round UV index to one decimal place when setting it
-        if (parsedData.uv_index) {
-          setUvIndex(Number(parsedData.uv_index.toFixed(1)));
-        }
-
         // Play sound and show alert for each reminder time
         parsedData.reminder_times.forEach((time: string) => {
           const reminderTime = new Date(time).getTime();
