@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
-import * as echarts from "echarts";
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/autoplay';
 
 // Play sound function
 const playSound = () => {
@@ -14,7 +16,7 @@ const showAlert = () => {
   alert("Time to reapply sunscreen! Don't forget to protect your skin from UV rays.");
 };
 
-const App = () => {
+const SunscreenReminder = () => {
   const [reminderTimes, setReminderTimes] = useState<string[]>([]);
   const [departureTime, setDepartureTime] = useState<string>("");
   const [returnTime, setReturnTime] = useState<string>("");
@@ -73,6 +75,11 @@ const App = () => {
       // Check if reminder_times exists and is an array
       if (parsedData && Array.isArray(parsedData.reminder_times)) {
         setReminderTimes(parsedData.reminder_times);
+        
+        // Round UV index to one decimal place when setting it
+        if (parsedData.uv_index) {
+          setUvIndex(Number(parsedData.uv_index.toFixed(1)));
+        }
 
         // Play sound and show alert for each reminder time
         parsedData.reminder_times.forEach((time: string) => {
@@ -108,37 +115,13 @@ const App = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
-      {/* Header */}
-      <header className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <i className="fas fa-sun text-yellow-400 text-2xl"></i>
-            <span className="text-xl font-semibold text-teal-700">SunSafe</span>
-          </div>
-          <nav className="hidden md:flex space-x-8">
-            <a href="#" className="text-gray-600 hover:text-gray-900 cursor-pointer">
-              UV Index Tracker
-            </a>
-            <a href="#" className="text-gray-600 hover:text-gray-900 cursor-pointer">
-              UV Impact Insights
-            </a>
-            <a href="#" className="text-gray-600 hover:text-gray-900 cursor-pointer">
-              Sunscreen Reminder
-            </a>
-            <a href="#" className="text-gray-600 hover:text-gray-900 cursor-pointer">
-              <i className="fas fa-home text-blue-400"></i>
-              <span className="ml-1">Home</span>
-            </a>
-          </nav>
-          <div className="flex items-center space-x-2 bg-yellow-50 px-4 py-2 rounded-lg">
-            <i className="fas fa-radiation text-yellow-600"></i>
-          </div>
-        </div>
-      </header>
-
+    <div className="min-h-screen max-w-7xl mx-auto px-4 py-8">
+      {/* Title */}
+      <div className='mb-8'>
+        <h1 className="text-3xl font-bold text-gray-900">Sunscreen Reminder</h1>
+      </div>
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 py-8">
+      <div>
         {/* Reminder Settings */}
         <section className="bg-white rounded-xl shadow-lg p-8 mb-12">
           <h2 className="text-2xl font-semibold mb-6">Reminder Settings</h2>
@@ -264,9 +247,9 @@ const App = () => {
             </div>
           </div>
         )}
-      </main>
+      </div>
     </div>
   );
 };
 
-export default App;
+export default SunscreenReminder;

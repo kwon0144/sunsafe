@@ -20,7 +20,7 @@ jobs:
     environment: production
     strategy:
       matrix:
-        function_name: [TestFunction, TestFunction2] # Add more functions as needed
+        function_name: [TestFunction, TestFunction2, SunscreenReminder, UVRequest-V1] # Add more functions as needed
 
     steps:
     - name: Checkout

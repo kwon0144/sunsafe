@@ -14,7 +14,7 @@ const cities = [
   { name: "Newcastle", lat: "-32.9283", lon: "151.7817" },
 ];
 
-const App: React.FC = () => {
+const UVIndexTracker = () => {
   const [selectedCity, setSelectedCity] = useState<string>("Sydney");
   const [uvIndex, setUvIndex] = useState<number | null>(null);
   const [uvColor, setUvColor] = useState<string>("");
@@ -79,7 +79,7 @@ const App: React.FC = () => {
       const parsedBody = JSON.parse(data.body); 
       console.log("Final Parsed Body:", parsedBody);
   
-      setUvIndex(parsedBody.uv_index);
+      setUvIndex(Number(parsedBody.uv_index.toFixed(1)));
       setUvColor(parsedBody.color);
       setError("");
     } catch (err) {
@@ -159,63 +159,46 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        {/* Header */}
-        <header className="mb-8">
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center">
-              <div className="flex items-center">
-                <i className="fas fa-sun text-yellow-400 text-4xl mr-2"></i>
-                <h1 className="text-4xl font-bold text-gray-900">SunSafe</h1>
-              </div>
-            </div>
-            <button className="px-4 py-2 text-gray-600 hover:text-indigo-500 flex items-center whitespace-nowrap !rounded-button">
-              <i className="fas fa-home mr-2"></i>
-              Home
-            </button>
-          </div>
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">UV Index Tracker</h2>
-          <div className="flex items-center justify-between">
-            <div className="relative w-64">
-              <button
-                onClick={() => setShowLocationDropdown(!showLocationDropdown)}
-                className="w-full px-4 py-2 text-left bg-white border border-gray-300 rounded-lg shadow-sm cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              >
-                <span className="flex items-center">
-                  <i className="fas fa-map-marker-alt text-indigo-500 mr-2"></i>
-                  {selectedCity}
-                </span>
-              </button>
-              {showLocationDropdown && (
-                <div className="absolute w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg z-10">
-                  {cities.map((city) => (
-                    <div
-                      key={city.name}
-                      className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                      onClick={() => {
-                        setSelectedCity(city.name);
-                        setShowLocationDropdown(false);
-                      }}
-                    >
-                      {city.name}
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
+      <div className="min-h-screen max-w-7xl mx-auto px-4 py-8">
+        {/* Title */}
+        <div className='mb-8'>
+          <h1 className="text-3xl font-bold text-gray-900">UV Index Tracker</h1>
+        </div>
+        <div className="flex items-center justify-between w-1/2 mb-5">
+          <div className="relative w-64">
             <button
-              onClick={fetchUVIndex}
-              className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              onClick={() => setShowLocationDropdown(!showLocationDropdown)}
+              className="w-full px-4 py-2 text-left bg-white border border-gray-300 rounded-lg shadow-sm cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-500"
             >
-              Get UV Index
+              <span className="flex items-center">
+                <i className="fas fa-map-marker-alt text-indigo-500 mr-2"></i>
+                {selectedCity}
+              </span>
             </button>
-            <div className="text-gray-600">
-              <i className="far fa-clock mr-2"></i>
-              March 10, 2025 | Last updated: 10:30 AM
-            </div>
+            {showLocationDropdown && (
+              <div className="absolute w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg z-10">
+                {cities.map((city) => (
+                  <div
+                    key={city.name}
+                    className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                    onClick={() => {
+                      setSelectedCity(city.name);
+                      setShowLocationDropdown(false);
+                    }}
+                  >
+                    {city.name}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
-        </header>
+          <button
+            onClick={fetchUVIndex}
+            className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            Get UV Index
+          </button>
+        </div>
 
         {/* Main UV Display */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
@@ -269,29 +252,8 @@ const App: React.FC = () => {
             ))}
           </div>
         </div>
-
-        {/* Bottom Navigation */}
-        <nav className="bg-white rounded-xl shadow-lg p-4">
-          <div className="flex justify-around">
-            {[
-              { icon: "fa-map", text: "UV Map" },
-              { icon: "fa-star", text: "Saved Locations" },
-              { icon: "fa-shield-alt", text: "Protection Advice" },
-              { icon: "fa-cog", text: "Settings" },
-            ].map((item) => (
-              <button
-                key={item.text}
-                className="flex flex-col items-center p-2 text-gray-600 hover:text-indigo-500 cursor-pointer"
-              >
-                <i className={`fas ${item.icon} text-xl mb-1`}></i>
-                <span className="text-sm">{item.text}</span>
-              </button>
-            ))}
-          </div>
-        </nav>
       </div>
-    </div>
   );
 };
 
-export default App;
+export default UVIndexTracker;
