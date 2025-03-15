@@ -1,4 +1,4 @@
-name: Deploy Lambda Function
+name: Deploy Lambda Functions
 
 on:
   push:
@@ -7,8 +7,7 @@ on:
 
 env:
   AWS_REGION: ap-southeast-2
-  LAMBDA_FUNCTION_NAME: TestFunction
-  AWS_ROLE_TO_ASSUME: ${{ secrets.LAMBDA_ROLE_ARN }}
+  AWS_ROLE_TO_ASSUME: arn:aws:iam::941377134816:role/gitactions-lambda-role
 
 permissions:
   id-token: write
@@ -16,9 +15,12 @@ permissions:
   
 jobs:
   deploy:
-    name: Deploy Lambda
+    name: Deploy Lambda Functions
     runs-on: ubuntu-latest
     environment: production
+    strategy:
+      matrix:
+        function_name: [TestFunction, TestFunction2] # Add more functions as needed
 
     steps:
     - name: Checkout
@@ -35,27 +37,30 @@ jobs:
 
     - name: Run unit tests
       run: |
-        cd backend/TestFunction
-        python -m pytest test_*.py -v
+        cd backend/${{ matrix.function_name }}
+        if ls test_*.py 1> /dev/null 2>&1; then
+          echo "Found test files, running tests..."
+          python -m pytest test_*.py -v
+        else
+          echo "No test files found for ${{ matrix.function_name }}, skipping tests."
+        fi
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v3
       with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ${{ env.AWS_REGION }}
         role-to-assume: ${{ env.AWS_ROLE_TO_ASSUME }}
         role-session-name: GitHubActionsLambdaDeployment
 
     - name: Zip the Lambda function
       run: |
-        cd backend/TestFunction
-        zip -r ../../function.zip lambda_function.py
+        cd backend/${{ matrix.function_name }}
+        zip -r ../../${{ matrix.function_name }}.zip lambda_function.py
 
     - name: Check if Lambda function exists
       id: check_lambda
       run: |
-        if aws lambda get-function --function-name ${{ env.LAMBDA_FUNCTION_NAME }}; then
+        if aws lambda get-function --function-name ${{ matrix.function_name }}; then
           echo "lambda_exists=true" >> $GITHUB_OUTPUT
         else
           echo "lambda_exists=false" >> $GITHUB_OUTPUT
@@ -65,17 +70,17 @@ jobs:
       run: |
         if [ "${{ steps.check_lambda.outputs.lambda_exists }}" == "false" ]; then
           echo "Creating Lambda function..."
-          aws lambda create-function --function-name ${{ env.LAMBDA_FUNCTION_NAME }} \
+          aws lambda create-function --function-name ${{ matrix.function_name }} \
             --runtime python3.13 \
-            --role ${{ secrets.LAMBDA_ROLE_ARN }} \
+            --role ${{ env.AWS_ROLE_TO_ASSUME }} \
             --handler lambda_function.lambda_handler \
-            --zip-file fileb://function.zip
+            --zip-file fileb://${{ matrix.function_name }}.zip
         else
           echo "Updating Lambda function..."
           aws lambda update-function-code \
-            --function-name ${{ env.LAMBDA_FUNCTION_NAME }} \
-            --zip-file fileb://function.zip --publish
+            --function-name ${{ matrix.function_name }} \
+            --zip-file fileb://${{ matrix.function_name }}.zip --publish
         fi
 
     - name: Clean up
-      run: rm function.zip
+      run: rm ${{ matrix.function_name }}.zip
