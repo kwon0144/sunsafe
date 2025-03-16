@@ -20,4 +20,5 @@ class UVIndexService extends APIClient {
     }
 }
 
-export default new UVIndexService(); 
+export default new UVIndexService();
+
