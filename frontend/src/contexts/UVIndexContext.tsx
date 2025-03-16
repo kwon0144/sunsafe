@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import { createContext, useContext, useEffect, ReactNode } from 'react';
 import { useUVIndex } from '../hooks/useUVIndex';
 
 interface UVIndexContextType {
