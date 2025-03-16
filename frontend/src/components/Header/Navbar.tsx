@@ -91,13 +91,22 @@ const Navbar = () => {
                 UV Impact Insights
               </Link>
               <Link
-                to="/sunscreen-reminder"
+                to="/suncream-reminder"
                 className={`w-full text-center p-4 hover:bg-orange-400 hover:text-white transition-all cursor-pointer ${
-                  isActive("/sunscreen-reminder") ? "bg-orange-400 text-white" : "bg-white text-gray-700"
+                  isActive("/suncream-reminder") ? "bg-orange-400 text-white" : "bg-white text-gray-700"
                 }`}
                 onClick={() => setIsMenuOpen(false)}
               >
-                Sunscreen Reminder
+                Suncream Reminder
+              </Link>
+              <Link
+                to="/uv-protection-advisor"
+                className={`w-full text-center p-4 hover:bg-orange-400 hover:text-white transition-all cursor-pointer ${
+                  isActive("/uv-protection-advisor") ? "bg-orange-400 text-white" : "bg-white text-gray-700"
+                }`}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                 UV Protection Advisor
               </Link>
             </div>
           )}
