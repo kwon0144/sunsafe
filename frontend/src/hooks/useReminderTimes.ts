@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { reminderApi } from '../api/reminderApi';
+import { reminderApi } from '../services/reminderApi';
 import { UseReminderTimesResult } from '../types/reminder';
 
 export const useReminderTimes = (): UseReminderTimesResult => {
