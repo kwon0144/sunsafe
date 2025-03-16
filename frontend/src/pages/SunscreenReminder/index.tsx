@@ -115,7 +115,7 @@ const SunscreenReminder = () => {
         <h1 className="text-3xl font-bold text-gray-900">Sunscreen Reminder</h1>
       </div>
       {/* Main Content */}
-      <div>
+      <div className="max-w-7xl mx-auto">
         {/* Reminder Settings */}
         <section className="bg-white rounded-xl shadow-lg p-8 mb-12">
           <h2 className="text-2xl font-semibold mb-6">Reminder Settings</h2>

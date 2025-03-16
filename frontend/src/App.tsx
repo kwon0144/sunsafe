@@ -10,7 +10,7 @@ import UVProtectionAdvisor from "./pages/UVProtectionAdvisor";
 function App() {
   return (
     <Router>
-      <div className="w-full min-h-screen">
+      <div className="max-full min-h-screen">
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
