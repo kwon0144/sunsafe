@@ -43,7 +43,7 @@ def lambda_handler(event, context):
         }
 
     try:
-        body = json.loads(event.get("body", "{}"))
+        body = event
         print("Parsed Body:", body)
         
         lat = float(body.get("lat", 0))
