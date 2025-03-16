@@ -1,6 +1,6 @@
 
 import Title from "../../components/Title";
-import UVChart from "./UVChart";
+import UVFact from "./UVFact";
 import UVIndexCard from "./UVIndexCard";
 import UVLevelGuide from "./UVLevelGuide";
 
@@ -12,7 +12,7 @@ const UVIndexTracker = () => {
       <Title title="UV Index Tracker" description="Track the UV index for your location" />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-10">
         <UVIndexCard />
-        <UVChart />
+        <UVFact />
       </div>
       <UVLevelGuide />
     </div>
