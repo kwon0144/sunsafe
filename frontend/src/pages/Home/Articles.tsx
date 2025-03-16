@@ -1,6 +1,5 @@
 const Articles = () => {
     return (
-        // <div className="max-w-7xl mb-20 px-10 lg:px-30">
         <div className="max-w-7xl mx-auto px-4 py-30 lg:px-30">
             <div className="flex items-center justify-between mb-10">
                 <h2 className="text-2xl font-semibold">Sun Safety Articles</h2>
