@@ -21,7 +21,7 @@ export const cities: City[] = [
 ];
 
 export const useUVIndex = () => {
-    const [selectedCity, setSelectedCity] = useState<string>("Sydney");
+    const [selectedCity, setSelectedCity] = useState<string>("Melbourne");
     const [uvIndex, setUvIndex] = useState<number | null>(null);
     const [error, setError] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(false);
