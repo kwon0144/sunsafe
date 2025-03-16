@@ -1,9 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import { notificationService } from '../services/notificationService';
 import { useReminderTimes } from './useReminderTimes';
-
-const TWO_HOURS_MS = 2 * 60 * 60 * 1000;
-const NOTIFICATION_DURATION = 3000;
+import { TWO_HOURS_MS, NOTIFICATION_DURATION } from '../types/constants';
 
 export const useReminders = () => {
     const [reminderTimes, setReminderTimes] = useState<string[]>([]);

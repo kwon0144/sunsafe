@@ -1,5 +1,4 @@
-const SOUND_URL = "https://www.soundjay.com/communication/typewriter-2.wav";
-const REMINDER_MESSAGE = "Time to reapply sunscreen! Don't forget to protect your skin from UV rays.";
+import { SOUND_URL, REMINDER_MESSAGE } from '../types/constants';
 
 export const notificationService = {
     playSound: () => {
