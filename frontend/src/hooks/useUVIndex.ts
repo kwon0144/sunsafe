@@ -1,57 +1,40 @@
 import { useState } from 'react';
 import uvIndexService from '../services/uv-index-service';
+import { UseUVIndexResult, UVLevel, UV_COLORS, UV_LEVEL_TEXT, UV_PROTECTION_ADVICE } from '../types/uv';
+import { CITIES } from '../types/constants';
 
-export interface City {
-    name: string;
-    lat: string;
-    lon: string;
-}
-
-export const cities: City[] = [
-    { name: "Sydney", lat: "-33.8688", lon: "151.2093" },
-    { name: "Melbourne", lat: "-37.8136", lon: "144.9631" },
-    { name: "Brisbane", lat: "-27.4698", lon: "153.0251" },
-    { name: "Perth", lat: "-31.9505", lon: "115.8605" },
-    { name: "Adelaide", lat: "-34.9285", lon: "138.6007" },
-    { name: "Canberra", lat: "-35.2809", lon: "149.1300" },
-    { name: "Hobart", lat: "-42.8821", lon: "147.3272" },
-    { name: "Darwin", lat: "-12.4634", lon: "130.8456" },
-    { name: "Gold Coast", lat: "-28.0167", lon: "153.4000" },
-    { name: "Newcastle", lat: "-32.9283", lon: "151.7817" },
-];
-
-export const useUVIndex = () => {
+export const useUVIndex = (): UseUVIndexResult => {
     const [selectedCity, setSelectedCity] = useState<string>("Melbourne");
     const [uvIndex, setUvIndex] = useState<number | null>(null);
     const [error, setError] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const getUvLevelColor = (index: number): string => {
-        if (index <= 2) return "bg-green-500";
-        if (index <= 5) return "bg-yellow-500";
-        if (index <= 7) return "bg-orange-500";
-        if (index <= 10) return "bg-red-500";
-        return "bg-purple-600";
+        if (index <= UVLevel.Low) return UV_COLORS[UVLevel.Low];
+        if (index <= UVLevel.Moderate) return UV_COLORS[UVLevel.Moderate];
+        if (index <= UVLevel.High) return UV_COLORS[UVLevel.High];
+        if (index <= UVLevel.VeryHigh) return UV_COLORS[UVLevel.VeryHigh];
+        return UV_COLORS[UVLevel.Extreme];
     };
 
     const getUvLevelText = (index: number): string => {
-        if (index <= 2) return "Low";
-        if (index <= 5) return "Moderate";
-        if (index <= 7) return "High";
-        if (index <= 10) return "Very High";
-        return "Extreme";
+        if (index <= UVLevel.Low) return UV_LEVEL_TEXT[UVLevel.Low];
+        if (index <= UVLevel.Moderate) return UV_LEVEL_TEXT[UVLevel.Moderate];
+        if (index <= UVLevel.High) return UV_LEVEL_TEXT[UVLevel.High];
+        if (index <= UVLevel.VeryHigh) return UV_LEVEL_TEXT[UVLevel.VeryHigh];
+        return UV_LEVEL_TEXT[UVLevel.Extreme];
     };
 
     const getProtectionAdvice = (index: number): string => {
-        if (index <= 2) return "Minimal protection required for normal activity";
-        if (index <= 5) return "Wear sunscreen, hat and sunglasses";
-        if (index <= 7) return "Reduce time in the sun between 10 a.m. and 4 p.m.";
-        if (index <= 10) return "Apply broad-spectrum SPF 50+ sunscreen every 2 hours";
-        return "Avoid sun exposure between 10 a.m. and 4 p.m.";
+        if (index <= UVLevel.Low) return UV_PROTECTION_ADVICE[UVLevel.Low];
+        if (index <= UVLevel.Moderate) return UV_PROTECTION_ADVICE[UVLevel.Moderate];
+        if (index <= UVLevel.High) return UV_PROTECTION_ADVICE[UVLevel.High];
+        if (index <= UVLevel.VeryHigh) return UV_PROTECTION_ADVICE[UVLevel.VeryHigh];
+        return UV_PROTECTION_ADVICE[UVLevel.Extreme];
     };
 
     const fetchCityUVIndex = async () => {
-        const cityData = cities.find((city) => city.name === selectedCity);
+        const cityData = CITIES.find((city) => city.name === selectedCity);
         if (!cityData) {
             setError("Please select a city.");
             return;
@@ -78,7 +61,7 @@ export const useUVIndex = () => {
         uvIndex,
         error,
         isLoading,
-        cities,
+        cities: CITIES,
         getUvLevelColor,
         getUvLevelText,
         getProtectionAdvice,
