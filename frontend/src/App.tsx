@@ -6,19 +6,23 @@ import UVImpactInsights from "./pages/UVImpactInsights";
 import SunscreenReminder from "./pages/SuncreamReminder";
 import Footer from "./components/Footer";
 import UVProtectionAdvisor from "./pages/UVProtectionAdvisor";
+import ScrollToTop from "./hooks/useScrollToTop";
 
 function App() {
   return (
     <Router>
-      <div className="max-full min-h-screen">
+      <ScrollToTop />
+      <div className="min-h-screen">
         <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/uv-index-tracker" element={<UVIndexTracker />} />
-          <Route path="/uv-impact-insights" element={<UVImpactInsights />} />
-          <Route path="/suncream-reminder" element={<SunscreenReminder />} />
-          <Route path="/uv-protection-advisor" element={<UVProtectionAdvisor />} />
-        </Routes>
+        <main className="pt-24">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/uv-index-tracker" element={<UVIndexTracker />} />
+            <Route path="/uv-impact-insights" element={<UVImpactInsights />} />
+            <Route path="/suncream-reminder" element={<SunscreenReminder />} />
+            <Route path="/uv-protection-advisor" element={<UVProtectionAdvisor />} />
+          </Routes>
+        </main>
         <Footer />
       </div>
     </Router>
