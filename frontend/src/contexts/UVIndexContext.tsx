@@ -1,4 +1,3 @@
-
 import { createContext, useContext, useEffect, ReactNode } from 'react';
 import { useUVIndex } from '../hooks/useUVIndex';
 
@@ -8,7 +7,14 @@ interface UVIndexContextType {
   isLoading: boolean;
 }
 
-const UVIndexContext = createContext<UVIndexContextType | undefined>(undefined);
+// Provide initial values to prevent undefined errors
+const initialContext: UVIndexContextType = {
+  uvIndex: null,
+  getUvLevelColor: () => '#666',
+  isLoading: true,
+};
+
+const UVIndexContext = createContext<UVIndexContextType>(initialContext);
 
 export const UVIndexProvider = ({ children }: { children: ReactNode }) => {
   const { uvIndex, getUvLevelColor, fetchUVIndex, isLoading } = useUVIndex();
@@ -35,8 +41,5 @@ export const UVIndexProvider = ({ children }: { children: ReactNode }) => {
 
 export const useUVIndexContext = () => {
   const context = useContext(UVIndexContext);
-  if (context === undefined) {
-    throw new Error('useUVIndexContext must be used within a UVIndexProvider');
-  }
   return context;
 }; 
