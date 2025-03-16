@@ -5,7 +5,7 @@ interface TitleProps {
 
 const Title = ({ title, description }: TitleProps) => {
     return (
-        <div className='mb-10'>
+        <div className='mt-10 mb-20'>
             <h1 className="text-3xl font-bold text-gray-900">{title}</h1>
             <p className="mt-2 text-gray-600">{description}</p>
         </div>
