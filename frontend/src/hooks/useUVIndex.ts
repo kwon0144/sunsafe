@@ -3,7 +3,7 @@ import { UseUVIndexResult, UVLevel, UV_COLORS, UV_LEVEL_TEXT, UV_PROTECTION_ADVI
 import { CITIES } from '../types/constants';
 import APIClient from '../services/APIClient';
 
-const uvIndexApi = new APIClient('/UV-Index');
+// const uvIndexApi = new APIClient('/UV-Index');
 
 export const useUVIndex = (): UseUVIndexResult => {
     const [selectedCity, setSelectedCity] = useState<string>("Melbourne");
@@ -46,8 +46,8 @@ export const useUVIndex = (): UseUVIndexResult => {
         setError("");
 
         try {
-            const data = await uvIndexApi.post({ lat: cityData.lat, lon: cityData.lon });
-            setUvIndex(Number(data.uv_index.toFixed(1)));
+            // const data = await uvIndexApi.post({ lat: cityData.lat, lon: cityData.lon });
+            // setUvIndex(Number(data.uv_index.toFixed(1)));
         } catch (err) {
             console.error("Fetch error:", err);
             setError("Error fetching UV index. Please try again.");
