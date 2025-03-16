@@ -16,8 +16,9 @@ const Footer = () => {
                         <h3 className="text-lg font-semibold mb-4 text-black">Quick Links</h3>
                         <ul className="space-y-2">
                             <li><Link to="/uv-index-tracker" className="hover:text-orange-400 transition-colors">UV Index Tracker</Link></li>
-                            <li><Link to="/sunscreen-reminder" className="hover:text-orange-400 transition-colors">Sunscreen Reminder</Link></li>
+                            <li><Link to="/suncream-reminder" className="hover:text-orange-400 transition-colors">Suncream Reminder</Link></li>
                             <li><Link to="/uv-impact-insights" className="hover:text-orange-400 transition-colors">Learn about UV Impact</Link></li>
+                            <li><Link to="/uv-protection-advisor" className="hover:text-orange-400 transition-colors">UV Protection Advisor</Link></li>
                         </ul>
                     </div>
                 </div>
