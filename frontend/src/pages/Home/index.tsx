@@ -4,13 +4,14 @@ import Articles from './Articles';
 
 const Home = () => {
   return (
-    <div>     
+    <div className="bg-orange-50">     
       <Hero />
       <div className="max-w-7xl mx-auto">
         <Services />
         <Articles />
       </div>
     </div>
-);
+  );
 };
+
 export default Home; 
