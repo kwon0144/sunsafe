@@ -1,7 +1,9 @@
 import { useState } from 'react';
-import uvIndexService from '../services/uv-index-service';
 import { UseUVIndexResult, UVLevel, UV_COLORS, UV_LEVEL_TEXT, UV_PROTECTION_ADVICE } from '../types/uv';
 import { CITIES } from '../types/constants';
+import APIClient from '../services/APIClient';
+
+const uvIndexApi = new APIClient('/UV-Index');
 
 export const useUVIndex = (): UseUVIndexResult => {
     const [selectedCity, setSelectedCity] = useState<string>("Melbourne");
@@ -44,7 +46,7 @@ export const useUVIndex = (): UseUVIndexResult => {
         setError("");
 
         try {
-            const data = await uvIndexService.getUVIndex(cityData.lat, cityData.lon);
+            const data = await uvIndexApi.post({ lat: cityData.lat, lon: cityData.lon });
             setUvIndex(Number(data.uv_index.toFixed(1)));
         } catch (err) {
             console.error("Fetch error:", err);
