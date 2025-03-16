@@ -1,17 +1,9 @@
-import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useUVIndex } from '../../hooks/useUVIndex';
+import { useUVIndexContext } from '../../contexts/UVIndexContext';
 
 const UVIndex = () => {
   const navigate = useNavigate();
-  const { uvIndex, getUvLevelColor, fetchUVIndex, isLoading } = useUVIndex();
-
-  useEffect(() => {
-    fetchUVIndex();
-    // Refresh UV index every 30 minutes
-    const interval = setInterval(fetchUVIndex, 30 * 60 * 1000);
-    return () => clearInterval(interval);
-  }, [fetchUVIndex]);
+  const { uvIndex, getUvLevelColor, isLoading } = useUVIndexContext();
 
   return (
     <div 
