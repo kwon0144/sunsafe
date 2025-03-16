@@ -29,12 +29,12 @@ const Navbar = () => {
           UV Impact Insights
         </Link>
         <Link
-          to="/sunscreen-reminder"
+          to="/suncream-reminder"
           className={`px-3 py-1 rounded-md hover:bg-orange-400 hover:text-white transition-colors ${
-            isActive("/sunscreen-reminder") ? "bg-orange-400 text-white" : "bg-gray-200 text-gray-700"
+            isActive("/suncream-reminder") ? "bg-orange-400 text-white" : "bg-gray-200 text-gray-700"
           }`}
         >
-          Sunscreen Reminder
+          Suncream Reminder
         </Link>
         <Link
           to="/uv-protection-advisor"
