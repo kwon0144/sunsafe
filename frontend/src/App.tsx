@@ -14,7 +14,7 @@ function App() {
       <ScrollToTop />
       <div className="min-h-screen">
         <Header />
-        <main className="pt-24">
+        <main className="pt-24 bg-orange-50">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/uv-index-tracker" element={<UVIndexTracker />} />

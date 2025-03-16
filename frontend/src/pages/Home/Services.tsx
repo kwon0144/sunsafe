@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom';
 const services = [
     {
       icon: 'fa-chart-line',
-      title: 'Real-time UV Tracking',
-      description: 'Monitor UV levels throughout the day with accurate, location-based data.',
-      path: '/uv-index-tracker'
+      title: 'UV related Analysis',
+      description: 'Understand the impact of UV radiation on skin cancer and temperature in Australia.',
+      path: '/uv-impact-insights'
     },
     {
       icon: 'fa-bell',
@@ -15,16 +15,16 @@ const services = [
     },
     {
       icon: 'fa-shield-alt',
-      title: 'Skin Protection Tips',
-      description: 'Access expert advice and recommendations for optimal sun protection.',
-      path: '/uv-impact-insights'
+      title: 'Skin Protection Advisor',
+      description: 'Access advice and recommendations for optimal sun protection.',
+      path: '/uv-protection-advisor'
     }
   ];
 
 const Services = () => {
     const navigate = useNavigate();
     return (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20 px-10 lg:px-30">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-10 lg:px-30">
         {services.map((service, index) => (
           <div
             key={index}

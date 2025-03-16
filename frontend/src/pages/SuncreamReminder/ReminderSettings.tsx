@@ -58,7 +58,7 @@ const ReminderSettings: React.FC<ReminderSettingsProps> = ({
         </div>
         <button
           type="submit"
-          className="!rounded-button bg-blue-600 text-white px-8 py-3 text-lg font-medium cursor-pointer hover:bg-blue-700 transition-colors w-full md:w-fit disabled:opacity-50 disabled:cursor-not-allowed"
+          className="!rounded-button bg-amber-600 text-white px-8 py-3 text-lg font-medium cursor-pointer hover:bg-amber-700 transition-colors whitespace-nowrap"
           disabled={isLoading}
         >
           {isLoading ? 'Getting Reminder Times...' : 'Get Reminder Times'}

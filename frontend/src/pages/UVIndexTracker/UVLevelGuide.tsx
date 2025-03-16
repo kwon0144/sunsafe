@@ -1,7 +1,7 @@
 
 const UVLevelGuide = () => {
   return (    
-  <div className="bg-white rounded-xl shadow-lg p-8 mb-8">
+  <div className="bg-white rounded-xl shadow-lg p-8">
     <h2 className="text-2xl font-semibold text-gray-900 mb-6">UV Index Guide</h2>
     <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
       {[

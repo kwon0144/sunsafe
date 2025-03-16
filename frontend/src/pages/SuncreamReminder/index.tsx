@@ -22,7 +22,7 @@ const SunscreenReminder = () => {
   } = useReminders();
 
   return (
-    <div className="min-h-screen max-w-7xl mx-auto px-4 py-8">
+    <div className="min-h-screen max-w-7xl mx-auto py-30">
       <Title title="Suncream Reminder" description="Set reminders to apply sunscreen at the right times." />
       <NotificationPanel show={showNotificationPanel} />
       <div className="max-w-7xl mx-auto">
