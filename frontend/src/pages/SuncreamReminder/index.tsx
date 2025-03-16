@@ -1,25 +1,14 @@
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/autoplay';
 import SunProtectionTips from "./SunProtectionTips";
 import ReminderSettings from "./ReminderSettings";
 import ReminderTimesList from "./ReminderTimesList";
 import NotificationPanel from "./NotificationPanel";
 import Title from "../../components/Title";
-import { useReminders } from "../../hooks/useReminders";
+import { useState } from "react";
 
-const SunscreenReminder = () => {
-  const {
-    reminderTimes,
-    departureTime,
-    returnTime,
-    showNotificationPanel,
-    isLoading,
-    error,
-    setDepartureTime,
-    setReturnTime,
-    handleSubmit
-  } = useReminders();
+
+const SuncreamReminder = () => {
+  const [reminderTimes, setReminderTimes] = useState<string[]>([]);
+  const [showNotificationPanel, setShowNotificationPanel] = useState(false);
 
   return (
     <div className="min-h-screen max-w-7xl mx-auto py-30 px-10">
@@ -27,13 +16,8 @@ const SunscreenReminder = () => {
       <NotificationPanel show={showNotificationPanel} />
       <div className="max-w-7xl mx-auto">
         <ReminderSettings
-          departureTime={departureTime}
-          returnTime={returnTime}
-          onDepartureTimeChange={setDepartureTime}
-          onReturnTimeChange={setReturnTime}
-          onSubmit={handleSubmit}
-          isLoading={isLoading}
-          error={error}
+          onReminderTimesChange={setReminderTimes}
+          onShowNotificationPanelChange={setShowNotificationPanel}
         />
         <ReminderTimesList reminderTimes={reminderTimes} />
         <SunProtectionTips />
@@ -42,4 +26,4 @@ const SunscreenReminder = () => {
   );
 };
 
-export default SunscreenReminder;
+export default SuncreamReminder;

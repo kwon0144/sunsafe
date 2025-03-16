@@ -1,24 +1,53 @@
 import React from 'react';
+import { notificationService } from '../../services/notificationService';
+import useReminderTimes from "../../hooks/useReminderTimes";
+import useScheduleNotifications from '../../hooks/useScheduleNotifications';
+import { useState } from 'react';
+import { NOTIFICATION_DURATION } from "../../types/constants";
 
 interface ReminderSettingsProps {
-  departureTime: string;
-  returnTime: string;
-  onDepartureTimeChange: (time: string) => void;
-  onReturnTimeChange: (time: string) => void;
-  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-  isLoading: boolean;
-  error: Error | null;
+  onReminderTimesChange: (times: string[]) => void;
+  onShowNotificationPanelChange: (show: boolean) => void;
 }
 
 const ReminderSettings: React.FC<ReminderSettingsProps> = ({
-  departureTime,
-  returnTime,
-  onDepartureTimeChange,
-  onReturnTimeChange,
-  onSubmit,
-  isLoading,
-  error,
+  onReminderTimesChange,
+  onShowNotificationPanelChange
 }) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
+  const [departureTime, setDepartureTime] = useState<string>("");
+  const [returnTime, setReturnTime] = useState<string>("");
+  const notify = notificationService.notify;
+
+  const setReminders = useReminderTimes(setIsLoading, setError);
+  const scheduleNotifications = useScheduleNotifications();
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault(); // Prevent default form submission
+    notify(); // Play sound immediately when the button is clicked
+    try {
+      // Get the current date, departure time and return time
+      const currentDate = new Date().toISOString().split("T")[0];
+      const departureDateTime = `${currentDate}T${departureTime}:00.000Z`;
+      const returnDateTime = `${currentDate}T${returnTime}:00.000Z`;
+      // Get calculated reminder times
+      const newReminderTimes = await setReminders(departureDateTime, returnDateTime);
+      // Check if the reminder times are valid
+      if (newReminderTimes && Array.isArray(newReminderTimes)) {
+        onReminderTimesChange(newReminderTimes);    // Set the reminders times
+        scheduleNotifications(newReminderTimes);    // Schedule notifications
+        onShowNotificationPanelChange(true);             // Show the notification panel
+        setTimeout(() => onShowNotificationPanelChange(false), NOTIFICATION_DURATION); // Hide the notification panel after 3 seconds
+      } else {
+        console.error("Invalid response data:", newReminderTimes);
+      }
+    } catch (error) {
+      console.error("Error fetching reminder times:", error);
+      alert("An error occurred. Please check the console for details.");
+    }
+  };
+
   return (
     <section className="bg-white rounded-xl shadow-lg p-8 mb-12">
       <h2 className="text-2xl font-semibold mb-6">Reminder Settings</h2>
@@ -27,7 +56,7 @@ const ReminderSettings: React.FC<ReminderSettingsProps> = ({
           {error.message}
         </div>
       )}
-      <form onSubmit={onSubmit} className="space-y-6">
+      <form onSubmit={handleSubmit} className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -36,7 +65,7 @@ const ReminderSettings: React.FC<ReminderSettingsProps> = ({
             <input
               type="time"
               value={departureTime}
-              onChange={(e) => onDepartureTimeChange(e.target.value)}
+              onChange={(e) => setDepartureTime(e.target.value)}
               className="border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
               required
               disabled={isLoading}
@@ -49,7 +78,7 @@ const ReminderSettings: React.FC<ReminderSettingsProps> = ({
             <input
               type="time"
               value={returnTime}
-              onChange={(e) => onReturnTimeChange(e.target.value)}
+              onChange={(e) => setReturnTime(e.target.value)}
               className="border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
               required
               disabled={isLoading}
