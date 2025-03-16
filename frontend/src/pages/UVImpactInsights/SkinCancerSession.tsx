@@ -1,12 +1,16 @@
 import LineChart from '../../components/LineChart';
+import useSkinCancer from '../../hooks/useSkinCancer';
 
 const SkinCancerSession = () => {
+
+    const skinCancerData = useSkinCancer();
+    
     const cancerYearlyData = {
-        xAxis: ['2014', '2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024'],
+        xAxis: skinCancerData?.year.map(String),
         series: [
           {
             name: 'Cancer Cases',
-            data: [15000, 16200, 17800, 19100, 20500, 22000, 23800, 25200, 26900, 28500, 30000],
+            data: skinCancerData?.count || [],
             color: '#FF6B6B'
           },
           {
@@ -24,7 +28,7 @@ const SkinCancerSession = () => {
     <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6 h-full">
       <LineChart
         title="Skin Cancer Cases & Mortality Rate"
-        xAxisData={cancerYearlyData.xAxis}
+        xAxisData={cancerYearlyData.xAxis || []}
         series={cancerYearlyData.series}
         height="400px"
       />

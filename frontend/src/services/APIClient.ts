@@ -22,5 +22,11 @@ class APIClient {
             .post<LambdaResponse>(this.endpoint, data, config)
             .then(res => JSON.parse(res.data.body));
     };
+
+    get = (config?: AxiosRequestConfig) => {
+        return axiosInstance
+            .get<LambdaResponse>(this.endpoint, config)
+            .then(res => JSON.parse(res.data.body));
+    };
 }
 export default APIClient;
