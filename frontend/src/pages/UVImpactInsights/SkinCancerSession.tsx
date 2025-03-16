@@ -32,7 +32,7 @@ const SkinCancerSession = () => {
   </div>
   {/* Cancer Impact Information */}
   <div className="w-full min-w-0">
-    <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6 h-full flex items-center">
+    <div className="bg-white rounded-lg shadow-lg p-10 sm:h-full flex items-center">
       <div className="w-full">
         <h2 className="text-2xl font-bold text-gray-800 mb-6">Skin Cancer Impact in Australia</h2>
         <p className="text-gray-700 mb-8 leading-relaxed">
