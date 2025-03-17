@@ -1,6 +1,7 @@
 version: 1
 applications:
-  - frontend:
+  - appRoot: "frontend"
+    frontend:
       phases:
         preBuild:
           commands:
@@ -28,4 +29,15 @@ applications:
               value: "1; mode=block"
             - key: Referrer-Policy
               value: "no-referrer"
-      appRoot: "frontend"  #string！
+    backend:
+      phases:
+        build:
+          commands:
+            - amplifyPush --simple
+      artifacts:
+        baseDirectory: backend/dist
+        files:
+          - '**/*'
+      cache:
+        paths:
+          - node_modules/**/*
