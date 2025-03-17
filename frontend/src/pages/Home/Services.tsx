@@ -11,7 +11,7 @@ const services = [
       icon: 'fa-bell',
       title: 'Smart Reminders',
       description: 'Get personalized notifications for sunscreen application based on your activity.',
-      path: '/sunscreen-reminder'
+      path: '/suncream-reminder'
     },
     {
       icon: 'fa-shield-alt',
