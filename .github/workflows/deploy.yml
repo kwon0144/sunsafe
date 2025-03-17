@@ -20,7 +20,7 @@ jobs:
     environment: production
     strategy:
       matrix:
-        function_name: [SuncreamReminder, UVRequest-V1, skinCancerData, skinMortalityData] # Add more functions as needed
+        function_name: [SuncreamReminder, UVRequest-V1, skinCancerData, skinMortalityData, averageTemperatureData] # Add more functions as needed
 
     steps:
     - name: Checkout
