@@ -7,22 +7,22 @@ const Articles = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-15">
             {[
               {
-                image: 'https://public.readdy.ai/ai/img_res/4d99705981ad6ec393534dc60540ef6a.jpg',
+                image: 'https://s3-tp22.s3.ap-southeast-2.amazonaws.com/article1.jpeg',
                 category: 'Health Alert',
-                title: 'Understanding UV Radiation: The Hidden Danger',
-                date: 'March 12, 2025',
-                author: 'Dr. Sarah Mitchell',
-                description: 'Recent studies reveal that prolonged exposure to UV radiation can lead to more than just sunburn. Learn about the long-term effects and prevention strategies.',
+                title: 'Burning is risky – so why are tan lines having their time in the sun on social media?',
+                date: 'January 11, 2025',
+                author: 'Lenore Talyor',
+                description: 'Gen Z influencers spruik tan lines as summer’s ‘fav accessory’ to generation ‘obsessed’ with looks',
                 readTime: '5 min read',
                 link: 'https://www.theguardian.com/australia-news/2025/jan/11/burning-is-risky-so-why-are-tan-lines-having-their-time-in-the-sun-on-social-media'
                 },
                 {
-                image: 'https://public.readdy.ai/ai/img_res/4abe44d2eeba926c59820e245df91f92.jpg',
+                image: 'https://s3-tp22.s3.ap-southeast-2.amazonaws.com/article2.jpeg',
                 category: 'Research',
-                title: 'New Research on Skin Cancer Prevention',
-                date: 'March 11, 2025',
-                author: 'Prof. Michael Chen',
-                description: 'Breakthrough findings in dermatological research suggest innovative approaches to protecting skin from harmful UV radiation.',
+                title: "Experts have developed new sun safety advice for diverse skin types. Here's what it says",
+                date: 'February 13, 2024',
+                author: 'Evan Young and Penny Timms',
+                description: 'Researchers have produced updated sun safety advice to better include people with darker skin tones.',
                 readTime: '7 min read',
                 link: "https://www.abc.net.au/news/2024-02-13/sun-safety-position-statement/103459156"
                 }
