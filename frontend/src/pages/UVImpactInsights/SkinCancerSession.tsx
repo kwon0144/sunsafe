@@ -33,6 +33,7 @@ const SkinCancerSession = () => {
         xAxisData={cancerYearlyData.xAxis || []}
         series={cancerYearlyData.series}
         height="400px"
+        yAxisUnit="Number of Cases"
       />
     </div>
   </div>

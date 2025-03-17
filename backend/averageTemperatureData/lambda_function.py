@@ -20,8 +20,8 @@ def lambda_handler(event, context):
         
         # Extract years and counts into separate lists
         response = {
-            'year': [row[0] for row in result],
-            'count': [row[1] for row in result]
+            'month': [row[0] for row in result],
+            'average': [row[1] for row in result]
         }
 
         # Close the cursor and connection
