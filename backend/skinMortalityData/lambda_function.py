@@ -13,7 +13,7 @@ def lambda_handler(event, context):
         )
         
         cursor = conn.cursor()
-        query = """SELECT year, SUM(count) FROM cancer_statistics GROUP BY year ORDER BY year;"""
+        query = """SELECT year, SUM(count) FROM cancer_mortality GROUP BY year ORDER BY year;"""
         
         cursor.execute(query)
         result = cursor.fetchall()
