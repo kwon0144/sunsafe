@@ -26,6 +26,7 @@ const TemperatureSession = () => {
                 xAxisData={temperatureYearlyData.xAxis || [] }
                 series={temperatureYearlyData.series}
                 height="400px"
+                yAxisUnit="°C"
               />
             </div>
           </div>
