@@ -1,12 +1,14 @@
 import LineChart from '../../components/LineChart';
 import useSkinCancer from '../../hooks/useSkinCancer';
+import useSkinMortality from '../../hooks/useSkinMortality';
 
 const SkinCancerSession = () => {
 
     const skinCancerData = useSkinCancer();
+    const skinMortalityData = useSkinMortality();
     
     const cancerYearlyData = {
-        xAxis: skinCancerData?.year.map(String),
+        xAxis: skinMortalityData?.year.map(String),
         series: [
           {
             name: 'Cancer Cases',
@@ -15,7 +17,7 @@ const SkinCancerSession = () => {
           },
           {
             name: 'Mortality Cases',
-            data: [1200, 1350, 1480, 1590, 1720, 1890, 2050, 2200, 2380, 2520, 2700],
+            data: skinMortalityData?.count || [],
             color: '#4A90E2'
           }
         ]
