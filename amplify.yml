@@ -28,4 +28,4 @@ applications:
               value: "1; mode=block"
             - key: Referrer-Policy
               value: "no-referrer"
-      appRoot: frontend  #vital
+      appRoot: "frontend"  #vital
