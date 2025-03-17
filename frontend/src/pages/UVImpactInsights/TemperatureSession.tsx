@@ -1,12 +1,15 @@
 import LineChart from "../../components/LineChart";
+import useTemperature from "../../hooks/useTemperature";
+import { MONTH_NAMES } from "../../types/constants";
 
 const TemperatureSession = () => {
+  const temperatureData = useTemperature();
     const temperatureYearlyData = {
-        xAxis: ['2014', '2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024'],
+        xAxis: temperatureData?.month.map((m: number) => MONTH_NAMES[m - 1]) || [],
         series: [
           {
             name: 'Temperature',
-            data: [23.5, 23.8, 24.2, 24.5, 24.9, 25.3, 25.8, 26.2, 26.7, 27.1, 27.5],
+            data: temperatureData?.average || [],
             color: '#FF9F43'
           }
         ]
@@ -19,9 +22,10 @@ const TemperatureSession = () => {
               {/* Temperature Chart */}
               <LineChart
                 title="Average Temperature Trends in Australia"
-                xAxisData={temperatureYearlyData.xAxis}
+                xAxisData={temperatureYearlyData.xAxis || []}
                 series={temperatureYearlyData.series}
                 height="400px"
+                yAxisUnit="°C"
               />
             </div>
           </div>

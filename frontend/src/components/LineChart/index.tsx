@@ -12,9 +12,10 @@ interface LineChartProps {
   }[];
   height?: string;
   className?: string;
+  yAxisUnit?: string;
 }
 
-const LineChart = ({ title, xAxisData, series, height = '400px', className = '' }: LineChartProps) => {
+const LineChart = ({ title, xAxisData, series, height = '400px', className = '', yAxisUnit = 'Number of Cases' }: LineChartProps) => {
   const chartRef = useRef<HTMLDivElement>(null);
   const chartInstance = useRef<echarts.ECharts | null>(null);
 
@@ -67,7 +68,7 @@ const LineChart = ({ title, xAxisData, series, height = '400px', className = '' 
       },
       yAxis: {
         type: 'value',
-        name: 'Number of Cases',
+        name: yAxisUnit,
         nameTextStyle: {
           fontSize: 12
         },
@@ -123,7 +124,7 @@ const LineChart = ({ title, xAxisData, series, height = '400px', className = '' 
       window.removeEventListener('resize', resizeChart);
       resizeObserver.disconnect();
     };
-  }, [title, xAxisData, series]);
+  }, [title, xAxisData, series, yAxisUnit]);
 
   return (
     <div 
