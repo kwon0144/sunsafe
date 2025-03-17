@@ -17,4 +17,6 @@ export const NOTIFICATION_DURATION = 3000;
 export const TWO_HOURS_MS = 2 * 60 * 60 * 1000;
 
 export const SOUND_URL = "https://www.soundjay.com/communication/typewriter-2.wav";
-export const REMINDER_MESSAGE = "Time to reapply sunscreen! Don't forget to protect your skin from UV rays."; 
+export const REMINDER_MESSAGE = "Time to reapply sunscreen! Don't forget to protect your skin from UV rays.";
+
+export const MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']; 

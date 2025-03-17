@@ -1,8 +1,9 @@
 import json
 import requests
+import os
 
-API_KEY = "openuv-h8j7rm85ksa0l-io"  
-OPENUV_URL = "https://api.openuv.io/api/v1/uv"
+API_KEY = os.environ["API_KEY"]
+OPENUV_URL = os.environ["OPENUV_URL"]
 
 def get_uv_index(lat, lon):
     headers = {"x-access-token": API_KEY}
@@ -42,7 +43,7 @@ def lambda_handler(event, context):
         }
 
     try:
-        body = json.loads(event.get("body", "{}"))
+        body = event
         print("Parsed Body:", body)
         
         lat = float(body.get("lat", 0))

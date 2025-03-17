@@ -13,15 +13,15 @@ def lambda_handler(event, context):
         )
         
         cursor = conn.cursor()
-        query = """SELECT year, SUM(count) FROM cancer_statistics GROUP BY year ORDER BY year;"""
+        query = """SELECT month, ROUND(AVG(temperature)) FROM temperature GROUP BY month;"""
         
         cursor.execute(query)
         result = cursor.fetchall()
         
         # Extract years and counts into separate lists
         response = {
-            'year': [row[0] for row in result],
-            'count': [int(row[1]) for row in result]
+            'month': [row[0] for row in result],
+            'average': [row[1] for row in result]
         }
 
         # Close the cursor and connection
