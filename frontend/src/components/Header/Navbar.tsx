@@ -6,7 +6,7 @@ const navigationItems = [
   { path: "/", label: "Home" },
   { path: "/uv-index-tracker", label: "Tracker", mobileName: "UV Index Tracker" },
   { path: "/uv-impact-insights", label: "Insights", mobileName: "UV Impact Insights" },
-  { path: "/suncream-reminder", label: "Suncream Reminder" },
+  { path: "/sunscreen-reminder", label: "Sunscreen Reminder" },
   { path: "/uv-protection-advisor", label: "Protection Advisor", mobileName: "UV Protection Advisor" },
 ];
 

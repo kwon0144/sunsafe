@@ -6,13 +6,13 @@ import Title from "../../components/Title";
 import { useState } from "react";
 
 
-const SuncreamReminder = () => {
+const SunscreenReminder = () => {
   const [reminderTimes, setReminderTimes] = useState<string[]>([]);
   const [showNotificationPanel, setShowNotificationPanel] = useState(false);
 
   return (
     <div className="min-h-screen max-w-7xl mx-auto py-30 px-10">
-      <Title title="Suncream Reminder" description="Set reminders to apply sunscreen at the right times." />
+      <Title title="Sunscreen Reminder" description="Set reminders to apply sunscreen at the right times." />
       <NotificationPanel show={showNotificationPanel} />
       <div className="max-w-7xl mx-auto">
         <ReminderSettings
@@ -26,4 +26,4 @@ const SuncreamReminder = () => {
   );
 };
 
-export default SuncreamReminder;
+export default SunscreenReminder;

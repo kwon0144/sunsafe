@@ -3,7 +3,7 @@ import Header from "./components/Header";
 import Home from "./pages/Home";
 import UVIndexTracker from "./pages/UVIndexTracker";
 import UVImpactInsights from "./pages/UVImpactInsights";
-import SunscreenReminder from "./pages/SuncreamReminder";
+import SunscreenReminder from "./pages/SunscreenReminder";
 import Footer from "./components/Footer";
 import UVProtectionAdvisor from "./pages/UVProtectionAdvisor";
 import ScrollToTop from "./hooks/useScrollToTop";
@@ -21,7 +21,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/uv-index-tracker" element={<UVIndexTracker />} />
               <Route path="/uv-impact-insights" element={<UVImpactInsights />} />
-              <Route path="/suncream-reminder" element={<SunscreenReminder />} />
+              <Route path="/sunscreen-reminder" element={<SunscreenReminder />} />
               <Route path="/uv-protection-advisor" element={<UVProtectionAdvisor />} />
             </Routes>
           </main>
