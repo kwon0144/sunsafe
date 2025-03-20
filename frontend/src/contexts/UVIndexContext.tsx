@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, ReactNode, useState, useCallback } from 'react';
-import { UseUVIndexResult, UVLevel, UV_COLORS, UV_LEVEL_TEXT, UV_PROTECTION_ADVICE } from '../types/uv';
+import { UVLevel, UV_COLORS, UV_LEVEL_TEXT, UV_PROTECTION_ADVICE } from '../types/uv';
 import { CITIES } from '../types/constants';
 import APIClient from '../services/APIClient';
 
