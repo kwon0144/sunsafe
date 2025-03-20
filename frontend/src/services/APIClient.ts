@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig } from "axios";
 
 const axiosInstance = axios.create({
-    baseURL: "https://dii6ds9ge8.execute-api.ap-southeast-2.amazonaws.com/test312"
+    baseURL: import.meta.env.VITE_API_BASE_URL
 });
 
 export interface LambdaResponse {
@@ -29,4 +29,5 @@ class APIClient {
             .then(res => JSON.parse(res.data.body));
     };
 }
+
 export default APIClient;

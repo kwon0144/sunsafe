@@ -17,7 +17,7 @@ const UVProtectionAdvisor = () => {
           </div>
         )}
         <iframe
-          src="https://richardxiong-demo-app.hf.space"
+          src={import.meta.env.VITE_HUGGING_FACE_SPACE_URL}
           className="w-full h-full"
           frameBorder="0"
           scrolling="no"
