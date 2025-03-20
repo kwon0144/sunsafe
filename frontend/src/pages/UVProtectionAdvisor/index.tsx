@@ -1,20 +1,22 @@
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import Title from "../../components/Title";
 
 const UVProtectionAdvisor = () => {
-  const navigate = useNavigate();
-  
-  useEffect(() => {
-    // Open the Hugging Face space in a new tab
-    window.open('https://huggingface.co/spaces/RichardXiong/demo-app', '_blank');
-    
-    // Redirect back to the home page
-    navigate('/');
-  }, [navigate]);
-
   return (
-    <div className="flex justify-center items-center h-screen">
-      <h1 className="text-xl font-semibold">Redirecting...</h1>
+    <div className="min-h-screen max-w-7xl mx-auto py-30 px-10">
+      {/* Title */}
+      <Title title="UV Protection Advisor" description="Get personalized recommendations for your skin type and lifestyle." />
+      {/* Main Content */}
+      <div className="w-full h-[1200px] md:h-[1100px] lg:h-[800px] overflow-hidden">
+        <iframe
+          src="https://richardxiong-demo-app.hf.space"
+          className="w-full h-full"
+          frameBorder="0"
+          scrolling="no"
+          style={{ overflow: 'hidden' }}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        />
+      </div>
     </div>
   );
 };
