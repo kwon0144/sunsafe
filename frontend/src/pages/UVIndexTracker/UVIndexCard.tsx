@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
-import { useUVIndex } from "../../hooks/useUVIndex";
+import { useState } from "react";
+import { useUVIndexContext } from "../../contexts/UVIndexContext";
 
 const UVIndexCard = () => {
     const [showLocationDropdown, setShowLocationDropdown] = useState(false);
 
-      const {
+    const {
         selectedCity,
         setSelectedCity,
         uvIndex,
@@ -15,11 +15,13 @@ const UVIndexCard = () => {
         getUvLevelText,
         getProtectionAdvice,
         fetchUVIndex,
-    } = useUVIndex();
+    } = useUVIndexContext();
 
-    useEffect(() => {
+    const handleCityChange = (cityName: string) => {
+        setSelectedCity(cityName);
+        setShowLocationDropdown(false);
         fetchUVIndex();
-    }, [selectedCity]);
+    };
 
     return (        
     <>
@@ -41,10 +43,7 @@ const UVIndexCard = () => {
                 <div
                   key={city.name}
                   className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                  onClick={() => {
-                    setSelectedCity(city.name);
-                    setShowLocationDropdown(false);
-                  }}
+                  onClick={() => handleCityChange(city.name)}
                 >
                   {city.name}
                 </div>
